@@ -1,0 +1,14 @@
+class MainActivity : ComponentActivity() {
+    private val viewModel: SeriesViewModel by viewModels {
+        object : AndroidViewModelFactory(application) {}
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MaterialTheme {
+                SeriesListScreen(viewModel)
+            }
+        }
+    }
+}
