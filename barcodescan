@@ -1,0 +1,10 @@
+val scanner = BarcodeScanning.getClient()
+
+fun processImage(image: InputImage, onResult: (String) -> Unit) {
+    scanner.process(image)
+        .addOnSuccessListener { barcodes ->
+            barcodes.firstOrNull()?.rawValue?.let { value ->
+                onResult(value)
+            }
+        }
+}
