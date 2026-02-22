@@ -1,0 +1,3 @@
+class CollectionApp : Application() {
+    val database by lazy { CollectionDatabase.getInstance(this) }
+}
