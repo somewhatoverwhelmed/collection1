@@ -1,0 +1,26 @@
+@Dao
+interface SeriesDao {
+    @Query("SELECT * FROM CollectionSeries ORDER BY title")
+    fun getAllSeries(): Flow<List<CollectionSeries>>
+
+    @Insert
+    suspend fun insertSeries(series: CollectionSeries): Long
+}
+
+@Dao
+interface VolumeDao {
+    @Query("SELECT * FROM CollectionVolume WHERE seriesId = :seriesId ORDER BY volumeNumber")
+    fun getVolumesForSeries(seriesId: Long): Flow<List<CollectionVolume>>
+
+    @Insert
+    suspend fun insertVolume(volume: CollectionVolume): Long
+}
+
+@Dao
+interface CopyDao {
+    @Query("SELECT * FROM CollectionCopy WHERE volumeId = :volumeId")
+    fun getCopiesForVolume(volumeId: Long): Flow<List<CollectionCopy>>
+
+    @Insert
+    suspend fun insertCopy(copy: CollectionCopy): Long
+}
