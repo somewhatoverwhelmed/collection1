@@ -1,0 +1,56 @@
+// CollectionSeries.kt
+@Entity
+data class CollectionSeries(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val title: String,
+    val language: String,
+    val edition: String,
+    val publisher: String?,
+    val notes: String?,
+    val barcode: String?,
+    val isbn: String?
+)
+
+// CollectionVolume.kt
+@Entity(
+    foreignKeys = [
+        ForeignKey(
+            entity = CollectionSeries::class,
+            parentColumns = ["id"],
+            childColumns = ["seriesId"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ],
+    indices = [Index("seriesId")]
+)
+data class CollectionVolume(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val seriesId: Long,
+    val volumeNumber: Int,
+    val title: String?,
+    val isbn: String?,
+    val barcode: String?
+)
+
+// CollectionCopy.kt
+@Entity(
+    foreignKeys = [
+        ForeignKey(
+            entity = CollectionVolume::class,
+            parentColumns = ["id"],
+            childColumns = ["volumeId"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ],
+    indices = [Index("volumeId")]
+)
+data class CollectionCopy(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val volumeId: Long,
+    val condition: Condition,
+    val notes: String?
+)
+
+enum class Condition {
+    MINT, VERY_GOOD, GOOD, FAIR, POOR
+}
