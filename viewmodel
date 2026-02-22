@@ -1,0 +1,31 @@
+class SeriesViewModel(app: Application) : AndroidViewModel(app) {
+
+    private val db = (app as CollectionApp).database
+    val seriesList: StateFlow<List<CollectionSeries>> =
+        db.seriesDao().getAllSeries().stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            emptyList()
+        )
+
+    fun addSeries(
+        title: String,
+        language: String,
+        edition: String,
+        publisher: String?
+    ) {
+        viewModelScope.launch {
+            db.seriesDao().insertSeries(
+                CollectionSeries(
+                    title = title,
+                    language = language,
+                    edition = edition,
+                    publisher = publisher,
+                    notes = null,
+                    barcode = null,
+                    isbn = null
+                )
+            )
+        }
+    }
+}
