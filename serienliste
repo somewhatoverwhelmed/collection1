@@ -1,0 +1,23 @@
+@Composable
+fun SeriesListScreen(viewModel: SeriesViewModel) {
+    val series by viewModel.seriesList.collectAsState()
+
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+                // hier: Dialog oder neuer Screen zum Anlegen einer Serie
+            }) {
+                Text("+")
+            }
+        }
+    ) { padding ->
+        LazyColumn(contentPadding = padding) {
+            items(series) { s ->
+                ListItem(
+                    headlineContent = { Text(s.title) },
+                    supportingContent = { Text("${s.language} – ${s.edition}") }
+                )
+            }
+        }
+    }
+}
