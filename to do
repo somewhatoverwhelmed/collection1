@@ -1,0 +1,26 @@
+Wie du realistisch weiterkommst
+Du hast klar gesagt: keine Programmiererfahrung. Für das, was du vorhast, brauchst du jemanden, der:
+
+Android Studio installiert
+
+ein neues Projekt anlegt
+
+diese Dateien/Codeblöcke einfügt und verdrahtet
+
+den Barcode‑Scanner‑Teil mit CameraX fertig integriert
+
+Was ich dir geben kann, ist:
+
+ein sauberes Datenmodell, das deine Sammlerlogik trägt
+
+eine klare Struktur, wie Serien, Bände, Exemplare, Sprachen und Editionen abgebildet werden
+
+Beispielcode, der als Grundlage für eine echte App taugt
+Wenn du magst, können wir im nächsten Schritt einen ganz konkreten Fokus setzen, z.B.:
+
+nur Serien + Bände ohne Scanner, aber komplett klickbar
+oder
+
+nur Scanner + einfaches Anlegen eines Bandes
+
+und das dann Stück für Stück verfeinern, so dass du das Projekt vielleicht mit jemandem zusammen tatsächlich auf dein Handy bekommst.
