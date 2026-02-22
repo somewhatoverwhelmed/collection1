@@ -1,0 +1,32 @@
+@Database(
+    entities = [CollectionSeries::class, CollectionVolume::class, CollectionCopy::class],
+    version = 1
+)
+@TypeConverters(Converters::class)
+abstract class CollectionDatabase : RoomDatabase() {
+    abstract fun seriesDao(): SeriesDao
+    abstract fun volumeDao(): VolumeDao
+    abstract fun copyDao(): CopyDao
+
+    companion object {
+        @Volatile private var INSTANCE: CollectionDatabase? = null
+
+        fun getInstance(context: Context): CollectionDatabase =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: Room.databaseBuilder(
+                    context.applicationContext,
+                    CollectionDatabase::class.java,
+                    "collection_db"
+                ).build().also { INSTANCE = it }
+            }
+    }
+}
+
+// Converters.kt
+class Converters {
+    @TypeConverter
+    fun fromCondition(value: Condition): String = value.name
+
+    @TypeConverter
+    fun toCondition(value: String): Condition = Condition.valueOf(value)
+}
